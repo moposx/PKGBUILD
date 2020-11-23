@@ -1,0 +1,14 @@
+# ignore all makepkg working directories
+**/pkg
+**/src
+
+# ignore generated software packages
+**/*.zst
+
+# ignore source files
+**/*.zip
+**/*.tar.gz
+**/*.tgz
+**/*.dmg
+**/*.rar
+**/*.7z
