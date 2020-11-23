@@ -1,0 +1,23 @@
+# Maintainer: Maxfield Wang <moposx01@gmail.com>
+# shellcheck disable=SC2034,SC2148,SC2154
+
+pkgname=ttc-genyo-font
+pkgver=1.501
+pkgrel=2
+pkgdesc='GenYo Min(源樣明體): Traditional Chinese serif typeface derived from
+ Adobe Source Han Serif, with appearance similar to Chinese traditional printing.'
+arch=('any')
+license=('custom:OFL')
+url='https://github.com/ButTaiwan/genyo-font'
+source=("${url}/releases/download/v${pkgver}/GenYoMin.zip")
+sha256sums=('6feafd61b261bdeccc4e69eba8661f5f1dd7ec79d8ef3a78b19fb20759cf366f')
+
+package() {
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" ./*.ttc
+
+    ## install licenses.
+    # Adobe Source Han Serif's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" SIL_Open_Font_License_1.1.txt
+    # GenYoMin's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE_OFL.txt
+}
