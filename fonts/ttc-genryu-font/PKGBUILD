@@ -1,0 +1,23 @@
+# Maintainer: Maxfield Wang <moposx01@gmail.com>
+# shellcheck disable=SC2034,SC2148,SC2154
+
+pkgname=ttc-genryu-font
+pkgver=1.501
+pkgrel=2
+pkgdesc='GenRyu Min(源流明體): Traditional Chinese serif typeface derived
+ from Adobe Source Han Serif with literary sense.'
+arch=('any')
+license=('custom:OFL')
+url='https://github.com/ButTaiwan/genryu-font'
+source=("${url}/releases/download/v${pkgver}/GenRyuMin.zip")
+sha256sums=('e0ddfef92cd319e829fb968a44ce17301e5b35a727824b3c03e3aa9d946e25cd')
+
+package() {
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" ./*.ttc
+
+    ## install licenses.
+    # Adobe Source Han Serif's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" SIL_Open_Font_License_1.1.txt
+    # GenRyuMin's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE_OFL.txt
+}
