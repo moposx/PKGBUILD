@@ -1,0 +1,23 @@
+# Maintainer: Maxfield Wang <moposx01@gmail.com>
+# shellcheck disable=SC2034,SC2148,SC2154
+
+pkgname=ttc-gensen-font
+pkgver=1.501
+pkgrel=2
+pkgdesc='GenSen Rounded(源泉圓體): Traditional Chinese rounded sans-serif typeface
+ derived from Adobe Source Han Sans.'
+arch=('any')
+license=('custom:OFL')
+url='https://github.com/ButTaiwan/gensen-font'
+source=("${url}/releases/download/v${pkgver}/GenSenRounded.zip")
+sha256sums=('13fffdee6e3b3358164f136ecee1d8f9fbe3a3346a2b2e61767556b472fc962f')
+
+package() {
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" ./*.ttc
+
+    ## install licenses.
+    # Adobe Source Han Serif's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" SIL_Open_Font_License_1.1.txt
+    # GenYoMin's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE_OFL.txt
+}
