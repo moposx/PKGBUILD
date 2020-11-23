@@ -1,0 +1,23 @@
+# Maintainer: Maxfield Wang <moposx01@gmail.com>
+# shellcheck disable=SC2034,SC2148,SC2154
+
+pkgname=ttc-genwan-font
+pkgver=1.501
+pkgrel=2
+pkgdesc='GenWan Min(源雲明體): Traditional Chinese serif typeface derived from
+ Adobe Source Han Serif with blurred junction of strokes.'
+arch=('any')
+license=('custom:OFL')
+url='https://github.com/ButTaiwan/genwan-font'
+source=("${url}/releases/download/v${pkgver}/GenWanMin.zip")
+sha256sums=('8eb2b17f7c4d3fc1bd16a51f2e70e55a51f1ea39afc967640fa35af1102da1d6')
+
+package() {
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" ./*.ttc
+
+    ## install licenses.
+    # Adobe Source Han Serif's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" SIL_Open_Font_License_1.1.txt
+    # GenYoMin's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE_OFL.txt
+}
