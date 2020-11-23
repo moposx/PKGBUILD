@@ -1,0 +1,24 @@
+# Maintainer: Maxfield Wang <moposx01@gmail.com>
+# shellcheck disable=SC2034,SC2148,SC2154
+
+pkgname=ttc-genseki-font
+pkgver=1.501
+pkgrel=2
+pkgdesc='GenYo Gothic(源樣黑體): Traditional Chinese sans-serif typeface
+ derived from Adobe Source Han Sans with appearance similar to
+ Chinese traditional printing.'
+arch=('any')
+license=('custom:OFL')
+url='https://github.com/ButTaiwan/genseki-font'
+source=("${url}/releases/download/v${pkgver}/GenSekiGothic.zip")
+sha256sums=('d4baad35c36428fe355648615c30bfb5f74bc1d4eca12e88af664a83fb7c7d6a')
+
+package() {
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" ./*.ttc
+
+    ## install licenses.
+    # Adobe Source Han Serif's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" SIL_Open_Font_License_1.1.txt
+    # GenYoMin's license (OFL)
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE_OFL.txt
+}
