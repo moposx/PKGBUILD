@@ -1,15 +1,15 @@
 # Maintainer: Maxfield Wang <moposx01@gmail.com>
 # shellcheck disable=SC2034,SC2148,SC2154
 pkgname=otf-sf-pro
-pkgver=1.000 # obtained from font files
-pkgrel=1
+pkgver=16.0d18e1
+pkgrel=2
 pkgdesc='San Francisco Pro is the system font for iOS, macOS, and tvOS. Coming with a rounded variant.'
 arch=('any')
 license=('custom')
 url='https://developer.apple.com/fonts'
 source=('https://devimages-cdn.apple.com/design/resources/download/SF-Font-Pro.dmg')
-makedepends=('p7zip')
-sha256sums=('2f8094911aece459f404057fa64f12832417a2b1182cc67e4afd0959817e4ecb')
+makedepends=('p7zip' 'texlive-bin')
+sha256sums=('c0b158d8d777ef65cee37a86822d5adcefa730e1c5da115e41c5f1b4e3a83986')
 
 prepare() {
     7z x SF-Font-Pro.dmg
@@ -17,8 +17,16 @@ prepare() {
     7z x Payload\~
 }
 
+build() {
+    # extract license from font file
+    otfinfo -i Library/Fonts/SF-Pro.ttf | sed -n '/This San Francisco/,/such request./p' > LICENSE
+}
+
 package() {
-    # only install the OTF fonts, since the TTF fonts here can cause problems.
+    # do not install italic SF Pro font as it causes problems
     install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/*.otf
-    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/*.ttf
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/SF-Pro.ttf
+    
+    # install license
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
 }
