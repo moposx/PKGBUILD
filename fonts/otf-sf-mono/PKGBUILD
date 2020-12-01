@@ -26,7 +26,7 @@ build() {
 package() {
     # do not install the SF Mono Italic ttf file to avoid problems.
     install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/*.otf
-    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/SF-Mono-Italic.ttf
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/SF-Mono.ttf
     
     # install license
     install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
