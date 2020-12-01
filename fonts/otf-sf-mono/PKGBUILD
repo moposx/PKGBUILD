@@ -1,0 +1,33 @@
+# Maintainer: Maxfield Wang <moposx01@gmail.com>
+# shellcheck disable=SC2034,SC2148,SC2154
+pkgname=otf-sf-mono
+pkgver=16.0d2e1
+pkgrel=2
+pkgdesc='Monospaced variant of San Francisco Pro, supporting Latin, Greek, and Cyrillic scripts, including six weights in normal and italic style.'
+arch=('any')
+license=('custom')
+url='https://developer.apple.com/fonts'
+source=('https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg')
+makedepends=('p7zip' 'texlive-bin')
+sha256sums=('fe04fe76d4f3847dc401566c47de14c0d14679d624680671b5d03938bf2ca22f')
+
+prepare() {
+    7z x SF-Mono.dmg
+    7z x SFMonoFonts/SF\ Mono\ Fonts.pkg
+    7z x Payload\~
+}
+
+build() {
+    # extract license from font file
+    otfinfo -i Library/Fonts/SF-Mono.ttf | sed -n '/This SF Mono/,/in writing./p' > LICENSE
+    sed -i 's/License Description: //' LICENSE
+}
+
+package() {
+    # do not install the SF Mono Italic ttf file to avoid problems.
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/*.otf
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/SF-Mono-Italic.ttf
+    
+    # install license
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
+}
