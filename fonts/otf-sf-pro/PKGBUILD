@@ -20,6 +20,7 @@ prepare() {
 build() {
     # extract license from font file
     otfinfo -i Library/Fonts/SF-Pro.ttf | sed -n '/This San Francisco/,/such request./p' > LICENSE
+    sed -i 's/License Description: //' LICENSE
 }
 
 package() {
