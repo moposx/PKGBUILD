@@ -9,7 +9,7 @@ license=('custom')
 url='https://developer.apple.com/fonts'
 source=('https://devimages-cdn.apple.com/design/resources/download/NY-Font.dmg')
 makedepends=('p7zip' 'texlive-bin')
-sha256sums=('6cf7c864a9e4c556f52cadaff03133d81530895833dee03ddc20889c481eeb0f')
+sha256sums=('58058b5dbddb77eec84a0c0b10b41fc544bc7cd50c6cb49874da4197f91afde5')
 
 prepare() {
     7z x NY-Font.dmg
