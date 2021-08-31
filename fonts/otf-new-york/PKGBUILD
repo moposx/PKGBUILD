@@ -1,26 +1,20 @@
 # Maintainer: Maxfield Wang <moposx01@gmail.com>
 # shellcheck disable=SC2034,SC2148,SC2154
 pkgname=otf-new-york
-pkgver=16.0d2e2
-pkgrel=2
+pkgver=17.0d5e1
+pkgrel=1
 pkgdesc='New York is a transitional serif typeface created by Apple Inc.'
 arch=('any')
 license=('custom')
 url='https://developer.apple.com/fonts'
-source=('https://devimages-cdn.apple.com/design/resources/download/NY-Font.dmg')
-makedepends=('p7zip' 'texlive-bin')
-sha256sums=('58058b5dbddb77eec84a0c0b10b41fc544bc7cd50c6cb49874da4197f91afde5')
+source=('https://devimages-cdn.apple.com/design/resources/download/NY.dmg')
+makedepends=('p7zip')
+sha256sums=('e44afa02ec75ac6800a50e916446f8c5a3ed042fa3cd846ae5860c99b537f3b2')
 
 prepare() {
-    7z x NY-Font.dmg
+    7z x NY.dmg
     7z x NYFonts/NY\ Fonts.pkg
     7z x Payload\~
-}
-
-build() {
-    # extract license from font file
-    otfinfo -i Library/Fonts/NewYork.ttf | sed -n '/You may use/,/in writing./p' > LICENSE
-    sed -i 's/License Description: //' LICENSE
 }
 
 package() {
@@ -28,5 +22,6 @@ package() {
     install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/*.ttf
 
     # install license
+    echo '(c) 2015-2021 Apple Inc. All rights reserved.' > LICENSE
     install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
 }

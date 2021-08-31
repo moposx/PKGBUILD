@@ -8,8 +8,8 @@ arch=('any')
 license=('custom')
 url='https://developer.apple.com/fonts'
 source=('https://devimages-cdn.apple.com/design/resources/download/SF-Mono.dmg')
-makedepends=('p7zip' 'texlive-bin')
-sha256sums=('fe04fe76d4f3847dc401566c47de14c0d14679d624680671b5d03938bf2ca22f')
+makedepends=('p7zip')
+sha256sums=('ec0518e310797d2f9cb924c18e3e7b661359f4fb653d1ad4315758ebcdb5ff11')
 
 prepare() {
     7z x SF-Mono.dmg
@@ -17,17 +17,10 @@ prepare() {
     7z x Payload\~
 }
 
-build() {
-    # extract license from font file
-    otfinfo -i Library/Fonts/SF-Mono.ttf | sed -n '/This SF Mono/,/in writing./p' > LICENSE
-    sed -i 's/License Description: //' LICENSE
-}
-
 package() {
-    # do not install the SF Mono Italic ttf file to avoid problems.
     install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/*.otf
-    install -Dm644 -t "${pkgdir}/usr/share/fonts/${pkgname}" Library/Fonts/SF-Mono.ttf
     
     # install license
+    echo '(c) 2015-2021 Apple Inc. All rights reserved.' > LICENSE
     install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" LICENSE
 }
